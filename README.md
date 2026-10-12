@@ -8,7 +8,7 @@ Why do employees leave, and can we spot who is at risk before they resign? Explo
 
 # The Problem
 
-Replacing an employee is expensive, yet most organisations only learn why people leave during exit interviews, when it's too late. This project analyses 1,470 employee records to:
+Replacing an employee is expensive, yet most organisations only learn why people leave during exit interviews, when it's too late. This project analyses employee records to:
 
 • Identify the factors most strongly linked to attrition
 
@@ -82,8 +82,9 @@ This was an early project, and a few improvements are planned:
 
 # Data
 
-IBM HR Analytics Employee Attrition dataset:[!link](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset)
-1,470 employees, 35 attributes (demographics, job role, satisfaction, compensation, tenure.
+IBM HR Analytics Employee Attrition dataset:
+1,470 employees, 35 attributes (demographics, job role, satisfaction, compensation, tenure. 
+[Link](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset)
 
 
 # Tech Stack
