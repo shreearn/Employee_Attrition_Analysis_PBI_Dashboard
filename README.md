@@ -1,52 +1,91 @@
-<h1>Employee Attrition Analysis Dashboard (Power BI)</h1>
+# Employee Attrition Analysis & Prediction
 
-<p>
-An interactive <strong>employee attrition analytics dashboard</strong> developed in
-<strong>Power BI</strong> to examine workforce turnover across
-<strong>organizational, demographic, and behavioral dimensions</strong>.
-The dashboard supports <strong>exploratory analysis and decision-making</strong>,
-enabling users to quickly identify attrition patterns, concentration areas,
-and contributing factors.
-</p>
+Why do employees leave, and can we spot who is at risk before they resign? Exploratory analysis, imbalance-aware machine learning and an interactive Power BI dashboard on IBM's HR dataset.
 
-<h2>Project Focus</h2>
-<ul>
-  <li>Quantifying overall attrition through key workforce metrics</li>
-  <li>Identifying roles, departments, and job levels with higher attrition exposure</li>
-  <li>Examining how overtime, business travel, and compensation patterns relate to employee exits</li>
-  <li>Enabling targeted analysis through dynamic filtering of employee segments</li>
-</ul>
+![Python Scikit-learn](https://img.shields.io/badge/Python-scikit--learn-blue)
+![Imbalance Data:Smote](https://img.shields.io/badge/Imbalanced%20Data-SMOTE-orange)
+![Power BI Dashboard](https://img.shields.io/badge/Power%20BI-Dashboard-F2C811)
 
-<h2>Key Analytics Covered</h2>
-<ul>
-  <li><strong>Attrition Rate and Workforce KPIs:</strong> headcount, average age, tenure, and monthly income</li>
-  <li><strong>Department- and Role-level Attrition:</strong> comparison across R&amp;D, Sales, HR, and job roles</li>
-  <li><strong>Job Level and Education Field Analysis:</strong> identifying attrition concentration points</li>
-  <li><strong>Behavioral Indicators:</strong> overtime participation and travel frequency vs attrition</li>
-  <li><strong>Compensation Signals:</strong> monthly income and percent salary hike distribution for attrited vs retained employees</li>
-  <li><strong>Age-based Trend:</strong> attrition variation across age groups</li>
-</ul>
+# The Problem
 
-<h2>Interactivity</h2>
-<ul>
-  <li>Filters for department, gender, job role, education field, and age range</li>
-  <li>All metrics and visuals update dynamically based on selected segments</li>
-  <li>Enables focused, scenario-based attrition analysis without rebuilding reports</li>
-</ul>
+Replacing an employee is expensive, yet most organisations only learn why people leave during exit interviews, when it's too late. This project analyses 1,470 employee records to:
 
-<h2>Tools</h2>
-<ul>
-  <li> Power BI</li>
-  <li>DAX-based measures</li>
-  <li>HR analytics</li>
-  <li>Data Visualization</li>
-  <li>Business Intelligence</li></li>
-</ul>
+• Identify the factors most strongly linked to attrition
 
-<h2>Why This Project Matters</h2>
-<p>
-This dashboard emphasizes <strong>analytical clarity and decision relevance</strong>
-over static reporting. It demonstrates the ability to translate HR data into
-<strong>structured, actionable insights</strong>, reflecting how attrition analysis
-can be applied in real organizational settings.
-</p>
+• Build a model that flags employees at risk of leaving
+
+• Present the findings in a dashboard that HR teams can explore themselves
+
+# Key Findings
+
+Driver	| Attrition rate
+⏱️ Overtime: employees working overtime	| 30.5% vs 10.4% without (~3x higher)
+
+🪜 Job level: entry-level (Level 1) employees |	26%, the highest of any level
+
+⚖️ Work-life balance: employees rating it "Bad"	 | 31%
+
+💼 Role: Sales Representatives	| 40%, the highest of any role
+
+💍 Marital status: single employees	| 25.5% vs ~10–12% for married/divorced
+
+Younger employees, those with fewer years at the company, frequent business travellers and those without stock options also show higher attrition.
+
+# Dashboard
+
+Interactive Power BI dashboard with filters for department, gender, age, job role and education field. It breaks down attrition by overtime, income, job level, role, travel frequency and salary hike.
+
+
+# Modelling Approach
+
+The challenge: class imbalance. Only 16% of employees left. A model that predicts "stays" for everyone would score 84% accuracy and still be useless, because it would never catch the people HR needs to retain.
+
+What was done:
+
+• Removed constant columns (EmployeeCount, Over18, StandardHours) and one-hot encoded categorical features
+
+• Random Forest tuned with GridSearchCV (optimised for F1, class_weight='balanced')
+
+• Gradient Boosting trained on SMOTE-balanced data to give the model enough examples of employees who left
+
+• Evaluated with precision, recall and F1 on the attrition class, not just accuracy
+
+# Result: both models reached ~86% accuracy. The difference shows up where it matters: compared with Random Forest, Gradient Boosting with SMOTE raised F1 on employees who left from 0.16 to 0.43 and recall from 10% to 38%, catching nearly 4x more at-risk employees.
+
+Next Steps
+
+This was an early project, and a few improvements are planned:
+
+• Use a stratified train/test split to keep the attrition ratio consistent
+
+• Tune Gradient Boosting with the same grid search used for Random Forest
+
+• Add ROC-AUC / PR-AUC and decision-threshold tuning to balance precision and recall
+
+• Generate predictions on the test set only, for an unbiased view of model performance
+
+• Explain predictions with SHAP to show why each employee is flagged
+
+
+# Repository Structure
+
+├── Employee_attrition.ipynb          # EDA, preprocessing, modelling
+
+├── WA_Fn-UseC_-HR-Employee-Attrition.csv
+
+├── Employee_attrition_PBI.pbix       # Power BI dashboard
+
+├── ss_PBI_Attrition.png              # dashboard screenshot
+
+└── gradient_boosting_model.pkl       # saved model
+
+# Data
+
+![IBM HR Analytics Employee Attrition dataset:](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset)
+1,470 employees, 35 attributes (demographics, job role, satisfaction, compensation, tenure).
+
+
+# Tech Stack
+
+Analysis & ML: Python, Pandas, NumPy, scikit-learn, imbalanced-learn (SMOTE) 
+Visualization: Seaborn, Matplotlib, hvPlot, Power BI
