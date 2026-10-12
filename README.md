@@ -50,7 +50,8 @@ What was done:
 
 • Evaluated with precision, recall and F1 on the attrition class, not just accuracy
 
-# Result: both models reached ~86% accuracy. The difference shows up where it matters: compared with Random Forest, Gradient Boosting with SMOTE raised F1 on employees who left from 0.16 to 0.43 and recall from 10% to 38%, catching nearly 4x more at-risk employees.
+# Result:
+Both models reached ~86% accuracy. The difference shows up where it matters: compared with Random Forest, Gradient Boosting with SMOTE raised F1 on employees who left from 0.16 to 0.43 and recall from 10% to 38%, catching nearly 4x more at-risk employees.
 
 Next Steps
 
@@ -81,8 +82,8 @@ This was an early project, and a few improvements are planned:
 
 # Data
 
-![IBM HR Analytics Employee Attrition dataset:](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset)
-1,470 employees, 35 attributes (demographics, job role, satisfaction, compensation, tenure).
+IBM HR Analytics Employee Attrition dataset:[!link](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset)
+1,470 employees, 35 attributes (demographics, job role, satisfaction, compensation, tenure.
 
 
 # Tech Stack
